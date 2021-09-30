@@ -1,0 +1,52 @@
+<div class="row container-fluid">
+  <div class="col-md-12 container-fluid">
+    <br />
+    <button
+      class="card-link btn btn-sm btn-outline-info ybtn"
+      (click)="AddProduct()"
+    >
+      Add new
+    </button>
+    <table class="table">
+      <thead class="bg-dark text-light">
+        <tr>
+          <th scope="col">Code</th>
+          <th scope="col">Product Name</th>
+          <th scope="col">Category</th>
+          <th scope="col">Description</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Cost Price</th>
+          <th scope="col">Selling Price</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of service.list">
+          <th scope="row">{{product.code}}</th>
+          <td>{{product.productName}}</td>
+          <td>{{product.category}}</td>
+          <td>{{product.description}}</td>
+          <td>{{product.quantity}}</td>
+          <td>{{product.costPrice}}</td>
+          <td>{{product.sellingPrice}}</td>
+          <td>
+            <button
+              (click)="populateForm(product)"
+              class="card-link btn btn-sm btn-outline-success"
+              matTooltip="click to edit this Product's details"
+            >
+              <mat-icon>open_in_new</mat-icon>
+            </button>
+            <button
+              class="btn btn-sm btn-outline-danger"
+              (click)="onDelete(product.id)"
+              matTooltip="click to delete this product"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

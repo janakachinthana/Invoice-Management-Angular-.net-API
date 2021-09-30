@@ -1,0 +1,165 @@
+<div style="text-align: center;">
+  <h1>
+    <strong>{{!service.formData.id ? 'New Product' : 'Update Product'}}</strong>
+  </h1>
+</div>
+
+<br />
+
+<form #form="ngForm" (submit)="insertRecord(form)" autocomplete="off">
+  <input
+    type="hidden"
+    name="id"
+    #id="ngModel"
+    [(ngModel)]="service.formData.id"
+  />
+
+  <div class="row">
+    <label>Product Name</label>
+    <input
+      matInput
+      required
+      name="productName"
+      #productName="ngModel"
+      [(ngModel)]="service.formData.productName"
+      class="form-control"
+    />
+    <mat-error *ngIf="productName.invalid && productName.touched"
+      >This field required</mat-error
+    >
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <label>Code</label>
+      <input
+        matInput
+        required
+        name="code"
+        #code="ngModel"
+        [(ngModel)]="service.formData.code"
+        class="form-control"
+      />
+      <mat-error *ngIf="code.invalid && code.touched"
+        >This field required</mat-error
+      >
+    </div>
+    <div class="col-md-6">
+      <label>Category</label>
+      <input
+        matInput
+        required
+        name="category"
+        #category="ngModel"
+        class="form-control"
+        [(ngModel)]="service.formData.category"
+      />
+      <mat-error *ngIf="category.invalid && category.touched"
+        >This field required</mat-error
+      >
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <label>Description</label>
+      <input
+        class="form-control"
+        matInput
+        required
+        name="description"
+        #description="ngModel"
+        [(ngModel)]="service.formData.description"
+      />
+      <mat-error *ngIf="description.invalid && description.touched"
+        >This field required</mat-error
+      >
+    </div>
+    <div class="col-md-6">
+      <label>Quantity</label>
+      <input
+        class="form-control"
+        matInput
+        required
+        type="number"
+        name="quantity"
+        #quantity="ngModel"
+        [(ngModel)]="service.formData.quantity"
+      />
+      <mat-error *ngIf="quantity.invalid && quantity.touched"
+        >This field required</mat-error
+      >
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <label>Cost Price</label>
+      <input
+        class="form-control"
+        matInput
+        required
+        name="costPrice"
+        #costPrice="ngModel"
+        [(ngModel)]="service.formData.costPrice"
+      />
+      <mat-error *ngIf="costPrice.invalid && costPrice.touched"
+        >This field required</mat-error
+      >
+    </div>
+    <div class="col-md-6">
+      <label>Selling Price</label>
+      <input
+        class="form-control"
+        matInput
+        required
+        name="sellingPrice"
+        #sellingPrice="ngModel"
+        [(ngModel)]="service.formData.sellingPrice"
+      />
+      <mat-error *ngIf="sellingPrice.invalid && sellingPrice.touched"
+        >This field required</mat-error
+      >
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+      <div class="input-group-prepend">
+        <button
+          type="submit"
+          [disabled]="form.invalid"
+          class="card-link btn btn-sm btn-outline-info ybtn"
+          *ngIf="service.formData.id==null;"
+        >
+          Create
+        </button>
+        <button
+          type="button"
+          (click)="updateRecord(form)"
+          [disabled]="form.invalid"
+          class="card-link btn btn-sm btn-outline-info ybtn"
+          *ngIf="service.formData.id!=null;"
+        >
+          save
+        </button>
+      </div>
+    </div>
+    <div class="col-md-6"></div>
+    <div class="col-md-3">
+      <button
+        type="button"
+        class="card-link btn btn-sm btn-outline-danger ybtn"
+        [mat-dialog-close]
+      >
+        CLOSE
+      </button>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div class="input-group-prepend">
+      <!-- <button type="button" class="card-link btn btn-sm btn-outline-danger ybtn" *ngIf="service.formData.Id!=null;" style ="margin-left: 45%;" (click)="downloadPDFBtn()">
+          Download Details
+           <mat-icon>save_alt</mat-icon>
+    </button> -->
+    </div>
+  </div>
+</form>
