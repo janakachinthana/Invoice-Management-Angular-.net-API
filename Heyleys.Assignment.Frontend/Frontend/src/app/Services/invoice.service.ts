@@ -1,17 +1,18 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Product } from '../Models/product.model';
-import { HttpClient } from "@angular/common/http";
+import { Invoice } from '../Models/invoice.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
+export class InvoiceService {
   date: Date = new Date();
-  formData: Product = new Product;
-  list: Product[] = [];
-  readonly rootURL = "https://localhost:44348/api/Products"
+  formData: Invoice = new Invoice;
+  list: Invoice[] = [];
+  readonly rootURL = "https://localhost:44348/api/Invoices"
 
   constructor(private http: HttpClient) { }
+
 
   newGuid() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -20,7 +21,7 @@ export class ProductService {
       return v.toString(16);
     });
   }
-  postProduct(formData: Product) {
+  postProduct(formData: Invoice) {
     console.log(formData.quantity + "quantity eka");
     const x = {
       "id": this.newGuid(),
@@ -31,30 +32,32 @@ export class ProductService {
       "isDeleted": false,
       "deleterUserId": null,
       "deletionTime": null,
-      "code": formData.code,
-      "productName": formData.productName,
-      "category": formData.category,
-      "description": formData.description,
-      "costPrice": formData.costPrice,
-      "sellingPrice": formData.sellingPrice,
-      "quantity": formData.quantity.toString()
+      "invoiceNumber": formData.invoiceNumber,
+      "customerName": formData.customerName,
+      "transactionDate": formData.transactionDate,
+      "productId": formData.productId,
+      "discount": formData.discount,
+      "quantity": formData.quantity,
+      "totalAmount": formData.totalAmount,
+      "balance": formData.Balance
 
     }
     return this.http.post(this.rootURL, x);
   }
 
-  putProduct(formData: Product) {
+  putProduct(formData: Invoice) {
     const x = {
       "id": formData.id,
       "lastModificationTime": this.date,
       "lastModifierUserId": 0,
-      "code": formData.code,
-      "productName": formData.productName,
-      "category": formData.category,
-      "description": formData.description,
-      "costPrice": formData.costPrice,
-      "sellingPrice": formData.sellingPrice,
-      "quantity": formData.quantity.toString()
+      "invoiceNumber": formData.invoiceNumber,
+      "customerName": formData.customerName,
+      "transactionDate": formData.transactionDate,
+      "productId": formData.productId,
+      "discount": formData.discount,
+      "quantity": formData.quantity,
+      "totalAmount": formData.totalAmount,
+      "balance": formData.Balance
 
     }
     return this.http.put(this.rootURL + '/' + formData.id, x)
@@ -69,7 +72,7 @@ export class ProductService {
   }
 
   refreshList() {
-    this.http.get(this.rootURL).toPromise().then(res => this.list = res as Product[])
+    this.http.get(this.rootURL).toPromise().then(res => this.list = res as Invoice[])
 
   }
 }

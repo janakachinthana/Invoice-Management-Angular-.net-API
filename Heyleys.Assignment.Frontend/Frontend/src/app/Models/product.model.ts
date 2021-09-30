@@ -7,5 +7,4 @@ export class Product {
     costPrice : any
     sellingPrice : any;
     quantity : any;
-
 }

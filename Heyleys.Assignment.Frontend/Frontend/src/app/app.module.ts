@@ -13,13 +13,17 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations"
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ToastrModule } from 'ngx-toastr';
+import { ViewInvoiceComponent } from './Invoices/view-invoice/view-invoice.component';
+import { AddInvoiceComponent } from './Invoices/add-invoice/add-invoice.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddProductComponent,
     HomeComponent,
-    ViewProductComponent
+    ViewProductComponent,
+    ViewInvoiceComponent,
+    AddInvoiceComponent
   ],
   imports: [
     BrowserModule,
