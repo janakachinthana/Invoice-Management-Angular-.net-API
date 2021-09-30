@@ -7,5 +7,5 @@ export class Invoice {
     discount : any
     quantity : any;
     totalAmount : any;
-    Balance : any;
+    balance : any;
 }

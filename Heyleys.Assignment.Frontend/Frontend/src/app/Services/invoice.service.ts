@@ -21,7 +21,7 @@ export class InvoiceService {
       return v.toString(16);
     });
   }
-  postProduct(formData: Invoice) {
+  postInvoice(formData: Invoice) {
     console.log(formData.quantity + "quantity eka");
     const x = {
       "id": this.newGuid(),
@@ -39,13 +39,13 @@ export class InvoiceService {
       "discount": formData.discount,
       "quantity": formData.quantity,
       "totalAmount": formData.totalAmount,
-      "balance": formData.Balance
+      "balance": formData.balance
 
     }
     return this.http.post(this.rootURL, x);
   }
 
-  putProduct(formData: Invoice) {
+  putInvoice(formData: Invoice) {
     const x = {
       "id": formData.id,
       "lastModificationTime": this.date,
@@ -57,17 +57,17 @@ export class InvoiceService {
       "discount": formData.discount,
       "quantity": formData.quantity,
       "totalAmount": formData.totalAmount,
-      "balance": formData.Balance
+      "balance": formData.balance
 
     }
     return this.http.put(this.rootURL + '/' + formData.id, x)
   }
 
-  deleteProduct(id: any) {
+  deleteInvoice(id: any) {
     return this.http.delete(this.rootURL + '/' + id)
   }
 
-  getProductById(id: any) {
+  getInvoiceById(id: any) {
     return this.http.get(this.rootURL + '/' + id)
   }
 

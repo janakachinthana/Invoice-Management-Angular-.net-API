@@ -1,1 +1,54 @@
-<p>view-invoice works!</p>
+<div class="row container-fluid">
+  <div class="col-md-12 container-fluid">
+    <br />
+    <button
+      class="card-link btn btn-sm btn-outline-info ybtn"
+      (click)="AddInvoice()"
+    >
+      Add new
+    </button>
+    <table class="table">
+      <thead class="bg-dark text-light">
+        <tr>
+          <th scope="col">Invoice Number</th>
+          <th scope="col">Customer Name</th>
+          <th scope="col">Transaction Date</th>
+          <th scope="col">product Id</th>
+          <th scope="col">Discount</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Total Amount</th>
+          <th scope="col">Balance</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let invoice of service.list">
+          <th scope="row">{{invoice.invoiceNumber}}</th>
+          <td>{{invoice.customerName}}</td>
+          <td>{{invoice.transactionDate}}</td>
+          <td>{{invoice.productId}}</td>
+          <td>{{invoice.discount}}</td>
+          <td>{{invoice.quantity}}</td>
+          <td>{{invoice.totalAmount}}</td>
+          <td>{{invoice.balance}}</td>
+          <td>
+            <button
+              (click)="populateForm(invoice)"
+              class="card-link btn btn-sm btn-outline-success"
+              matTooltip="click to edit this ivoice's details"
+            >
+              <mat-icon>open_in_new</mat-icon>
+            </button>
+            <button
+              class="btn btn-sm btn-outline-danger"
+              (click)="onDelete(invoice.id)"
+              matTooltip="click to delete this invoice"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
