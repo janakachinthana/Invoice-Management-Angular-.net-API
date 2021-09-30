@@ -4,14 +4,16 @@ using Heyleys.Assignment.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Heyleys.Assignment.Migrations
 {
     [DbContext(typeof(HeyleysAssignmentContext))]
-    partial class HeyleysAssignmentContextModelSnapshot : ModelSnapshot
+    [Migration("20210930180131_Add_Invoice_Model")]
+    partial class Add_Invoice_Model
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
