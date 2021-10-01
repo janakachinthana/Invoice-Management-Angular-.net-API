@@ -1,1 +1,181 @@
-<p>add-invoice works!</p>
+<div style="text-align: center;">
+  <h1>
+    <strong>{{!service.formData.id ? 'New Invoice' : 'Update Invoice'}}</strong>
+  </h1>
+</div>
+
+<br />
+
+<form #form="ngForm" (submit)="insertRecord(form)" autocomplete="off">
+  <input
+    type="hidden"
+    name="id"
+    #id="ngModel"
+    [(ngModel)]="service.formData.id"
+  />
+
+  <div class="row">
+    <div class="col-md-6">
+      <label>Invoice Number</label>
+      <input
+        matInput
+        required
+        name="invoiceNumber"
+        #invoiceNumber="ngModel"
+        [(ngModel)]="service.formData.invoiceNumber"
+        class="form-control"
+      />
+      <mat-error *ngIf="invoiceNumber.invalid && invoiceNumber.touched"
+        >This field required</mat-error
+      >
+    </div>
+    <div class="col-md-6">
+      <label>Customer Name</label>
+      <input
+        matInput
+        required
+        name="customerName"
+        #customerName="ngModel"
+        class="form-control"
+        [(ngModel)]="service.formData.customerName"
+      />
+      <mat-error *ngIf="customerName.invalid && customerName.touched"
+        >This field required</mat-error
+      >
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <label>Balance</label>
+      <input
+        matInput
+        required
+        name="balance"
+        #balance="ngModel"
+        [(ngModel)]="service.formData.balance"
+        class="form-control"
+      />
+      <mat-error *ngIf="balance.invalid && balance.touched"
+        >This field required</mat-error
+      >
+    </div>
+    <div class="col-md-6">
+      <label>Transaction Date</label>
+      <input
+        matInput
+        required
+        type="date"
+        name="transactionDate"
+        #transactionDate="ngModel"
+        class="form-control"
+        [(ngModel)]="service.formData.transactionDate"
+      />
+      <mat-error *ngIf="transactionDate.invalid && transactionDate.touched"
+        >This field required</mat-error
+      >
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <label>Product Id</label>
+      <input
+        class="form-control"
+        matInput
+        required
+        name="productId"
+        #productId="ngModel"
+        [(ngModel)]="service.formData.productId"
+      />
+      <mat-error *ngIf="productId.invalid && productId.touched"
+        >This field required</mat-error
+      >
+    </div>
+    <div class="col-md-6">
+      <label>Discount</label>
+      <input
+        class="form-control"
+        matInput
+        required
+        name="discount"
+        #discount="ngModel"
+        [(ngModel)]="service.formData.discount"
+      />
+      <mat-error *ngIf="discount.invalid && discount.touched"
+        >This field required</mat-error
+      >
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <label>Quantity</label>
+      <input
+        class="form-control"
+        matInput
+        required
+        name="quantity"
+        #quantity="ngModel"
+        [(ngModel)]="service.formData.quantity"
+      />
+      <mat-error *ngIf="quantity.invalid && quantity.touched"
+        >This field required</mat-error
+      >
+    </div>
+    <div class="col-md-6">
+      <label>Total Amount</label>
+      <input
+        class="form-control"
+        matInput
+        required
+        name="totalAmount"
+        #totalAmount="ngModel"
+        [(ngModel)]="service.formData.totalAmount"
+      />
+      <mat-error *ngIf="totalAmount.invalid && totalAmount.touched"
+        >This field required</mat-error
+      >
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+      <div class="input-group-prepend">
+        <button
+          type="submit"
+          [disabled]="form.invalid"
+          class="card-link btn btn-sm btn-outline-info ybtn"
+          *ngIf="service.formData.id==null;"
+        >
+          Create
+        </button>
+        <button
+          type="button"
+          (click)="updateRecord(form)"
+          [disabled]="form.invalid"
+          class="card-link btn btn-sm btn-outline-info ybtn"
+          *ngIf="service.formData.id!=null;"
+        >
+          save
+        </button>
+      </div>
+    </div>
+    <div class="col-md-6"></div>
+    <div class="col-md-3">
+      <button
+        type="button"
+        class="card-link btn btn-sm btn-outline-danger ybtn"
+        [mat-dialog-close]
+      >
+        CLOSE
+      </button>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div class="input-group-prepend">
+      <!-- <button type="button" class="card-link btn btn-sm btn-outline-danger ybtn" *ngIf="service.formData.Id!=null;" style ="margin-left: 45%;" (click)="downloadPDFBtn()">
+            Download Details
+             <mat-icon>save_alt</mat-icon>
+      </button> -->
+    </div>
+  </div>
+</form>

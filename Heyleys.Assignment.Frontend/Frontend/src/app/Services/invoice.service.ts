@@ -22,7 +22,7 @@ export class InvoiceService {
     });
   }
   postInvoice(formData: Invoice) {
-    console.log(formData.quantity + "quantity eka");
+    console.log(formData);
     const x = {
       "id": this.newGuid(),
       "creationTime": this.date,
@@ -46,6 +46,8 @@ export class InvoiceService {
   }
 
   putInvoice(formData: Invoice) {
+    console.log(formData);
+    
     const x = {
       "id": formData.id,
       "lastModificationTime": this.date,
@@ -58,7 +60,7 @@ export class InvoiceService {
       "quantity": formData.quantity,
       "totalAmount": formData.totalAmount,
       "balance": formData.balance
-
+     
     }
     return this.http.put(this.rootURL + '/' + formData.id, x)
   }
