@@ -17,5 +17,7 @@ namespace Heyleys.Assignment.Data
         public DbSet<Heyleys.Assignment.Models.Product> Product { get; set; }
 
         public DbSet<Heyleys.Assignment.Models.Invoice> Invoice { get; set; }
+
+        public DbSet<Heyleys.Assignment.Models.InvoiceProduct> InvoiceProduct { get; set; }
     }
 }
