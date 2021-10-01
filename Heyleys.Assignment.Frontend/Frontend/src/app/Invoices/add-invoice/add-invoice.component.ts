@@ -10,16 +10,22 @@ import { InvoiceService } from 'src/app/Services/invoice.service';
   styleUrls: ['./add-invoice.component.css']
 })
 export class AddInvoiceComponent implements OnInit {
-
+  selectedValue: any;
   constructor(public service: InvoiceService,
     private toastr: ToastrService,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<AddInvoiceComponent>) { }
 
-  ngOnInit(): void {
+    ngOnInit(): void {
+      this.service.refreshList();
+      if (this.service.listInvoiceProuct.length == 0) {
+        this.service.listInvoiceProuct = []
+      }
+    }
+  selectProduct( ){
+    alert(this.selectedValue)
   }
-
  
   insertRecord(form: NgForm) {
     this.service.postInvoice(form.value).subscribe(res => {

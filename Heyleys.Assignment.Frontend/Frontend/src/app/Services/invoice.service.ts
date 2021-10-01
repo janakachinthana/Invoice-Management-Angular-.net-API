@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { InvoiceProduct } from '../Models/invoice-product.model';
 import { Invoice } from '../Models/invoice.model';
 
 @Injectable({
@@ -9,7 +10,8 @@ export class InvoiceService {
   date: Date = new Date();
   formData: Invoice = new Invoice;
   list: Invoice[] = [];
-  readonly rootURL = "https://localhost:44348/api/Invoices"
+  listInvoiceProuct: InvoiceProduct[] = [];
+  readonly rootURL = "https://localhost:44348/api"
 
   constructor(private http: HttpClient) { }
 
@@ -62,19 +64,19 @@ export class InvoiceService {
       "balance": formData.balance
      
     }
-    return this.http.put(this.rootURL + '/' + formData.id, x)
+    return this.http.put(this.rootURL + '/Invoices/' + formData.id, x)
   }
 
   deleteInvoice(id: any) {
-    return this.http.delete(this.rootURL + '/' + id)
+    return this.http.delete(this.rootURL + '/Invoices/' + id)
   }
 
   getInvoiceById(id: any) {
-    return this.http.get(this.rootURL + '/' + id)
+    return this.http.get(this.rootURL + '/Invoices/' + id)
   }
 
   refreshList() {
-    this.http.get(this.rootURL).toPromise().then(res => this.list = res as Invoice[])
-
+    this.http.get(this.rootURL+'/Invoices').toPromise().then(res => this.list = res as Invoice[])
+    this.http.get(this.rootURL+'/InvoiceProducts').toPromise().then(res => this.listInvoiceProuct = res as InvoiceProduct[])
   }
 }

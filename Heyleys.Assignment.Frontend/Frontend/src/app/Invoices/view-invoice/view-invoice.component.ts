@@ -33,8 +33,8 @@ export class ViewInvoiceComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.disableClose = false;
-    dialogConfig.width = '35%';
-    dialogConfig.height = '70%';
+    dialogConfig.width = '100%';
+    dialogConfig.height = '90%';
     this.dialog.open(AddInvoiceComponent, dialogConfig);
   }
 
@@ -42,8 +42,8 @@ export class ViewInvoiceComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.disableClose = false;
-    dialogConfig.width = '35%';
-    dialogConfig.height = '70%';
+    dialogConfig.width = '100%';
+    dialogConfig.height = '90%';
     dialogConfig.data = { product };
     this.dialog.open(AddInvoiceComponent, dialogConfig);
   }
