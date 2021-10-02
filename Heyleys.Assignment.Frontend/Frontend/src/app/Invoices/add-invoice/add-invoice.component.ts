@@ -20,7 +20,7 @@ export class AddInvoiceComponent implements OnInit {
   discountedAmount: number = 0;
   date: Date = new Date();
   invoiceProduct: InvoiceProduct = new InvoiceProduct;
-
+  TotalAmount: number = 0;
 
   constructor(public service: InvoiceService,
     public productService: ProductService,
@@ -50,9 +50,10 @@ export class AddInvoiceComponent implements OnInit {
   selectProduct(event: any) {
     console.log(event.target.value)
     for (let index = 0; index < this.productService.list.length; index++) {
-      const element =  this.productService.list[index];
-      if(event.target.value == element.id){
+      const element = this.productService.list[index];
+      if (event.target.value == element.id) {
         this.service.selectedProducts.push(element);
+        element.quantity = 0;
         this.service.selectedQuantityProducts.push(element);
       }
     }
@@ -67,15 +68,22 @@ export class AddInvoiceComponent implements OnInit {
   }
 
   selectQuantity(event: any) {
-    this.service.formData.totalAmount = 0;
+
+    this.TotalAmount = 0
+
     for (let index = 0; index < this.service.selectedQuantityProducts.length; index++) {
+
       const element = this.service.selectedQuantityProducts[index];
+
       if (event.name == element.id) {
         element.quantity = event.value;
-        this.LineTotal = (element.sellingPrice * element.quantity);
       }
-      this.service.formData.totalAmount = this.service.formData.totalAmount + this.LineTotal
+      
+      this.LineTotal = (element.sellingPrice * element.quantity);
+      this.TotalAmount = this.TotalAmount  + this.LineTotal
     }
+   
+    this.service.formData.totalAmount =  this.TotalAmount
     console.log(this.LineTotal)
   }
 
@@ -94,7 +102,7 @@ export class AddInvoiceComponent implements OnInit {
       this.service.refreshList();
     });
 
-    for (let index = 1; index < this.service.selectedQuantityProducts.length; index++) {
+    for (let index = 0; index < this.service.selectedQuantityProducts.length; index++) {
       const element = this.service.selectedQuantityProducts[index];
 
       this.invoiceProduct.invoiceId = form.value.id;
@@ -145,7 +153,7 @@ export class AddInvoiceComponent implements OnInit {
   }
 
   downloadPDF() {
-    
+
 
     // const options = {
     //   filename : '( '+this.service.formData.customerName + +" - "+this.service.formData.id + ') Invoce Report',
@@ -155,7 +163,7 @@ export class AddInvoiceComponent implements OnInit {
     //   jsPDF:{ format: 'a4', orientation: 'portrait',putOnlyUsedFonts:true}
     // };
     // var Element = document.getElementById('container');
-   
+
     // html2pdf()
     //   .from(Element)
     //   .set(options)
