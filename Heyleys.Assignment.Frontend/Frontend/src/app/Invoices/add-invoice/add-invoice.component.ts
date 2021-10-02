@@ -7,9 +7,7 @@ import { Product } from 'src/app/Models/product.model';
 import { InvoiceProductService } from 'src/app/Services/invoice-product.service';
 import { InvoiceService } from 'src/app/Services/invoice.service';
 import { ProductService } from 'src/app/Services/product.service';
-import html2canvas from 'html2canvas';
-
-
+// import * as html2pdf  from 'html2pdf';
 @Component({
   selector: 'app-add-invoice',
   templateUrl: './add-invoice.component.html',
@@ -37,6 +35,7 @@ export class AddInvoiceComponent implements OnInit {
     if (this.productService.list.length == 0) {
       this.productService.list = []
     }
+
   }
 
   calcbalence(event: any) {
@@ -50,8 +49,13 @@ export class AddInvoiceComponent implements OnInit {
 
   selectProduct(event: any) {
     console.log(event.target.value)
-    this.service.selectedProducts.push(this.productService.getProductById(event.target.value));
-    this.service.selectedQuantityProducts.push(this.productService.getProductById(event.target.value));
+    for (let index = 0; index < this.productService.list.length; index++) {
+      const element =  this.productService.list[index];
+      if(event.target.value == element.id){
+        this.service.selectedProducts.push(element);
+        this.service.selectedQuantityProducts.push(element);
+      }
+    }
   }
 
   newGuid() {
@@ -150,7 +154,7 @@ export class AddInvoiceComponent implements OnInit {
     //   margin : 10,
     //   jsPDF:{ format: 'a4', orientation: 'portrait',putOnlyUsedFonts:true}
     // };
-    var Element = document.getElementById('container');
+    // var Element = document.getElementById('container');
    
     // html2pdf()
     //   .from(Element)
