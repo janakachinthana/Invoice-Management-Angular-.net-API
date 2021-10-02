@@ -78,12 +78,12 @@ export class AddInvoiceComponent implements OnInit {
       if (event.name == element.id) {
         element.quantity = event.value;
       }
-      
+
       this.LineTotal = (element.sellingPrice * element.quantity);
-      this.TotalAmount = this.TotalAmount  + this.LineTotal
+      this.TotalAmount = this.TotalAmount + this.LineTotal
     }
-   
-    this.service.formData.totalAmount =  this.TotalAmount
+
+    this.service.formData.totalAmount = this.TotalAmount
     console.log(this.LineTotal)
   }
 
@@ -130,6 +130,32 @@ export class AddInvoiceComponent implements OnInit {
         this.service.refreshList();
         this.dialogRef.close();
       });
+
+      for (let index = 0; index < this.service.selectedQuantityProducts.length; index++) {
+        const element = this.service.selectedQuantityProducts[index];
+
+        for (let index2 = 0; index < this.invoiceProductService.list.length; index2++) {
+          const element2 = this.invoiceProductService.list[index];
+
+          if (element.id == element2.productId && element2.invoiceId == form.value.id) {
+
+            this.invoiceProduct.id = element2.id;
+            this.invoiceProduct.invoiceId = form.value.id;
+            this.invoiceProduct.productId = element.id;
+            this.invoiceProduct.quantity = element.quantity;
+            this.invoiceProduct.lineTotal = element.quantity * element.sellingPrice;
+
+            this.invoiceProductService.putInvoice(this.invoiceProduct).subscribe(res => {
+              console.log(this.invoiceProduct);
+              this.service.selectedQuantityProducts = [];
+            });
+
+
+          }
+
+        }
+
+      }
     }
     else {
       this.dialogRef.close();

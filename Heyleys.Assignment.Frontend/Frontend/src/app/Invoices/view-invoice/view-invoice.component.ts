@@ -80,7 +80,8 @@ export class ViewInvoiceComponent implements OnInit {
 
             if(element.productId == productElement.id){
               productElement.quantity = element.quantity
-              this.service.selectedProducts.push(productElement)
+              this.service.selectedProducts.push(productElement);
+              this.service.selectedQuantityProducts.push(productElement)
             }
           }
         }

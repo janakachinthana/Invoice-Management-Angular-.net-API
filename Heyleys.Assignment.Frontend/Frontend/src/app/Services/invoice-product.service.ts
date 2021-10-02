@@ -43,6 +43,15 @@ export class InvoiceProductService {
   }
 
   putInvoice(formData: InvoiceProduct) {
+    const y = {
+      "id": formData.id,
+      "lastModificationTime": this.date,
+      "lastModifierUserId": 0,
+      "invoiceId": formData.invoiceId,
+      "productId": formData.productId,
+      "quantity": formData.quantity,
+      "lineTotal": formData.lineTotal
+    }
     return this.http.put(this.rootURL + '/' + formData.id, formData)
   }
 

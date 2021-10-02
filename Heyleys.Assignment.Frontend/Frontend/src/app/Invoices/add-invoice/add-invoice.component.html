@@ -89,7 +89,8 @@
               <th scope="col">Selected Quantity</th>
               <th scope="col">Cost Price</th>
               <th scope="col">Selling Price</th>
-              <th scope="col">quantity</th>
+              <th *ngIf="!service.formData.id" scope="col">quantity</th>
+              <th *ngIf="service.formData.id" scope="col">Line Total</th>
             </tr>
           </thead>
           <tbody>
@@ -101,13 +102,16 @@
               <td>{{product.quantity}}</td>
               <td>{{product.costPrice}}</td>
               <td>{{product.sellingPrice}}</td>
-              <td>
+              <td *ngIf="!service.formData.id">
                 <input
                   class="form-control"
                   required
                   name="{{product.id}}"
                   (input)="selectQuantity($event.target)"
                 />
+              </td>
+              <td *ngIf="service.formData.id">
+                <p>{{product.sellingPrice * product.quantity}}</p>
               </td>
             </tr>
           </tbody>
