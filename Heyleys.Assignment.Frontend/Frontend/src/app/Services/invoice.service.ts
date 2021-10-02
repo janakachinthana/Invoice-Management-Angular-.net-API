@@ -2,11 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { InvoiceProduct } from '../Models/invoice-product.model';
 import { Invoice } from '../Models/invoice.model';
+import { Product } from '../Models/product.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InvoiceService {
+  selectedProducts: Product[] = [];
+  selectedQuantityProducts: Product[] = [];
   date: Date = new Date();
   formData: Invoice = new Invoice;
   list: Invoice[] = [];
@@ -24,9 +27,8 @@ export class InvoiceService {
     });
   }
   postInvoice(formData: Invoice) {
-    console.log(formData);
     const x = {
-      "id": this.newGuid(),
+      "id": formData.id,
       "creationTime": this.date,
       "creatorUserId": 0,
       "lastModificationTime": null,
@@ -44,12 +46,14 @@ export class InvoiceService {
       "balance": formData.balance
 
     }
-    return this.http.post(this.rootURL, x);
+    
+    return this.http.post(this.rootURL + '/Invoices', x)
+    
   }
 
   putInvoice(formData: Invoice) {
     console.log(formData);
-    
+
     const x = {
       "id": formData.id,
       "lastModificationTime": this.date,
@@ -62,7 +66,7 @@ export class InvoiceService {
       "quantity": formData.quantity,
       "totalAmount": formData.totalAmount,
       "balance": formData.balance
-     
+
     }
     return this.http.put(this.rootURL + '/Invoices/' + formData.id, x)
   }
@@ -76,7 +80,6 @@ export class InvoiceService {
   }
 
   refreshList() {
-    this.http.get(this.rootURL+'/Invoices').toPromise().then(res => this.list = res as Invoice[])
-    this.http.get(this.rootURL+'/InvoiceProducts').toPromise().then(res => this.listInvoiceProuct = res as InvoiceProduct[])
+    this.http.get(this.rootURL + '/Invoices').toPromise().then(res => this.list = res as Invoice[])
   }
 }

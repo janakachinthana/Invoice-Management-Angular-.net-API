@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
+import { InvoiceProduct } from 'src/app/Models/invoice-product.model';
 import { Invoice } from 'src/app/Models/invoice.model';
+import { InvoiceProductService } from 'src/app/Services/invoice-product.service';
 import { InvoiceService } from 'src/app/Services/invoice.service';
+import { ProductService } from 'src/app/Services/product.service';
 import { AddInvoiceComponent } from '../add-invoice/add-invoice.component';
 
 @Component({
@@ -19,6 +22,8 @@ export class ViewInvoiceComponent implements OnInit {
 
   constructor(
     public service: InvoiceService,
+    public productService: ProductService,
+    public invoiceProductService: InvoiceProductService,
     private dialog: MatDialog,
     private toastr: ToastrService,) { }
 
@@ -26,6 +31,15 @@ export class ViewInvoiceComponent implements OnInit {
     this.service.refreshList();
     if (this.service.list.length == 0) {
       this.service.list = []
+    }
+    this.invoiceProductService.refreshList();
+    if (this.invoiceProductService.list.length == 0) {
+      this.invoiceProductService.list = []
+    }
+
+    this.productService.refreshList();
+    if (this.productService.list.length == 0) {
+      this.productService.list = []
     }
   }
 
@@ -38,20 +52,44 @@ export class ViewInvoiceComponent implements OnInit {
     this.dialog.open(AddInvoiceComponent, dialogConfig);
   }
 
-  EditInvoice(product: Invoice) {
+  EditInvoice(invoice: Invoice) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.disableClose = false;
     dialogConfig.width = '100%';
     dialogConfig.height = '90%';
-    dialogConfig.data = { product };
+    dialogConfig.data = { invoice };
     this.dialog.open(AddInvoiceComponent, dialogConfig);
   }
 
 
-  populateForm(product: Invoice) {
-    this.service.formData = Object.assign({}, product);
-    this.EditInvoice(product);
+  populateForm(invoice: Invoice) {
+    this.service.selectedProducts = [];
+    this.service.formData = Object.assign({}, invoice);
+
+    console.log(invoice.id)
+
+    for (let index = 0; index < this.invoiceProductService.list.length; index++) {
+      const element = this.invoiceProductService.list[index];
+     
+        
+        if (element.invoiceId == invoice.id) {
+
+          for (let index = 0; index < this.productService.list.length; index++) {
+            const productElement = this.productService.list[index];
+
+            if(element.productId == productElement.id){
+              productElement.quantity = element.quantity
+              this.service.selectedProducts.push(productElement)
+            }
+          }
+        }
+      
+     
+
+    }
+    console.log(this.service.selectedProducts)
+    this.EditInvoice(invoice);
   }
 
   onDelete(id: any) {
