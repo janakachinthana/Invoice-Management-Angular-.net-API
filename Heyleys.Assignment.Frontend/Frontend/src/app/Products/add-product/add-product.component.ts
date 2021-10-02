@@ -19,6 +19,9 @@ export class AddProductComponent implements OnInit {
     public dialogRef: MatDialogRef<AddProductComponent>) { }
 
   ngOnInit(): void {
+    if(this.service.formData == null){
+      console.log(this.service.formData)
+    }
   }
 
  
@@ -60,9 +63,9 @@ export class AddProductComponent implements OnInit {
         productName : '',
         code : '',
         description : "",
-        quantity : '',
+        quantity : 0,
         costPrice : '',
-        sellingPrice : '',
+        sellingPrice : 0,
         category:''
       }    
     }

@@ -5,6 +5,6 @@ export class Product {
     category : any;
     description : any
     costPrice : any
-    sellingPrice : any;
-    quantity : any;
+    sellingPrice : number = 0;
+    quantity : number = 0;
 }

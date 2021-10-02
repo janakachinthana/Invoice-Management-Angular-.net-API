@@ -6,6 +6,7 @@ import { HttpClient } from "@angular/common/http";
   providedIn: 'root'
 })
 export class ProductService {
+  product: Product = new Product;
   date: Date = new Date();
   formData: Product = new Product;
   list: Product[] = [];
@@ -65,7 +66,8 @@ export class ProductService {
   }
 
   getProductById(id: any) {
-    return this.http.get(this.rootURL + '/' + id)
+    this.http.get(this.rootURL + '/' + id).toPromise().then(res => this.product =res as Product);
+    return this.product;
   }
 
   refreshList() {
